@@ -5,7 +5,7 @@ cp runcrud.sh
 }
 
 runBrowser(){
-open http://localhost:8080/crud/v1/tasks
+open http://localhost:8080/crud/v1/task/getTasks
 end
 }
 
