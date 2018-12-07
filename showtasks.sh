@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
 crud(){
-if cp /runcrud.sh; then
-    echo "Sucecess"
-else
-    echo "error"
-fail
-fi
+cp runcrud.sh
 }
 
 runBrowser(){

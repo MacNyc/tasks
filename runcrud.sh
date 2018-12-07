@@ -24,7 +24,7 @@ rename() {
 }
 
 copy_file() {
-  if cp build/libs/crud.war $CATALINA_HOME/webapps; then
+  if cp build/libs/crud.war ~/Documents/tomcat/apache-tomcat-9.0.13/webapps; then
      start_tomcat
   else
      fail
