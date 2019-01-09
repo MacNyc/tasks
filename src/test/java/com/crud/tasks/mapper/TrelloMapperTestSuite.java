@@ -17,12 +17,9 @@ public class TrelloMapperTestSuite {
 
     private TrelloMapper trelloMapper;
 
-    private TaskMapper taskMapper;
-
     @Before
     public void init() {
         trelloMapper = new TrelloMapper();
-        taskMapper = new TaskMapper();
     }
 
     @Test
@@ -123,8 +120,4 @@ public class TrelloMapperTestSuite {
 
     }
 
-    @Test
-    public void testMapToTask(){
-
-    }
 }
