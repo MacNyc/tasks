@@ -1,14 +1,15 @@
 package com.crud.tasks.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-import lombok.*;
-
-@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@AllArgsConstructor
 @Getter
-public class TrelloCardDto {
+@AllArgsConstructor
+public class TrelloCard {
     private String name;
     private String description;
     private String pos;
