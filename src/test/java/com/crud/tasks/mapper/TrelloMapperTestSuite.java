@@ -17,9 +17,12 @@ public class TrelloMapperTestSuite {
 
     private TrelloMapper trelloMapper;
 
+    private TaskMapper taskMapper;
+
     @Before
     public void init() {
         trelloMapper = new TrelloMapper();
+        taskMapper = new TaskMapper();
     }
 
     @Test
@@ -111,19 +114,17 @@ public class TrelloMapperTestSuite {
         // Given
         TrelloCardDto givenCardDto1 = new TrelloCardDto("Name1", "Description1", "Position1", "ListId1");
         TrelloCard expectedCard1 = new TrelloCard("Name1", "Description1", "Position1", "ListId1");
-        TrelloCardDto givenCardDto2 = new TrelloCardDto("", "", "", "");
-        TrelloCard expectedCard2 = new TrelloCard("", "", "", "");
-        TrelloCardDto givenCardDto3 = new TrelloCardDto(null, null, null, null);
-        TrelloCard expectedCard3 = new TrelloCard(null, null, null, null);
 
         // When
         TrelloCard mapResult1 = trelloMapper.mapToCard(givenCardDto1);
-        TrelloCard mapResult2 = trelloMapper.mapToCard(givenCardDto2);
-        TrelloCard mapResult3 = trelloMapper.mapToCard(givenCardDto3);
 
         // Then
         assertEquals(expectedCard1, mapResult1);
-        assertEquals(expectedCard2, mapResult2);
-        assertEquals(expectedCard3, mapResult3);
+
+    }
+
+    @Test
+    public void testMapToTask(){
+
     }
 }
