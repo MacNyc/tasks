@@ -10,7 +10,7 @@ public class AdminConfig {
     @Value("${admin.mail}")
     private String adminMail;
 
-    @Value("$[admin.name}")
+    @Value("Maciej")
     private String adminName;
 
 }

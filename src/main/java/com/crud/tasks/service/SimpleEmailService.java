@@ -10,6 +10,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
 import static java.util.Optional.ofNullable;
 
 
@@ -27,22 +30,12 @@ public class SimpleEmailService {
     public void send(final Mail mail){
         LOGGER.info("Starting email preparation...");
         try {
-            javaMailSender.send(createMailMessage(mail));
+            javaMailSender.send(createMimeMessage(mail));
             LOGGER.info("Email has been sent.");
         } catch (MailException e) {
             LOGGER.error("Failed to process email sending:", e.getMessage(), e);
         }
     }
-
-    private SimpleMailMessage createMailMessage(final Mail mail){
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
-        //ofNullable(mail.getToCc()).ifPresent(mailMessage::setCc);
-        return mailMessage;
-    }
-
     private MimeMessagePreparator createMimeMessage(final Mail mail) {
         return mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
@@ -52,5 +45,13 @@ public class SimpleEmailService {
         };
     }
 
+    private SimpleMailMessage createMailMessage(final Mail mail){
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()));
+
+        return mailMessage;
+    }
 }
 

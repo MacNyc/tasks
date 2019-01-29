@@ -8,10 +8,15 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+
+import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleEmailServiceTest {
@@ -23,21 +28,20 @@ public class SimpleEmailServiceTest {
     private JavaMailSender javaMailSender;
 
     @Test
-    public void shouldSendEmail(){
+    public void shouldSendEmail() {
+
         //Given
-        Mail mail = new Mail("test@test.com", "Test", "Test Message");
+        Mail mail = new Mail("test@test.com", "Test", "Test message");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
-        //ofNullable(mail.getToCc()).ifPresent(mailMessage::setCc);
 
-        //When
+        // When
         simpleEmailService.send(mail);
 
-        //Then
-       verify(javaMailSender, times(1)).send(mailMessage);
+        // Then
+        verify(javaMailSender, times(1)).send((MimeMessagePreparator) any(Mail.class));
     }
-
 }
