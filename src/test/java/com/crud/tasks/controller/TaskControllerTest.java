@@ -111,32 +111,24 @@ public class TaskControllerTest {
 
 
     @Test
-    public void shouldDeleteTaskById() throws Exception {
-        // Given
-        Task task = new Task(1L, "Test Title", "Test");
-        Task createdTask = new Task(1L, "Test Title", "Test");
-
-        when(dbService.saveTask(task)).thenReturn(createdTask);
-        dbService.deleteTask(1L);
-
-        // When & Then
-        mockMvc.perform(delete("/v1/tasks/1").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-
-        Mockito.verify(dbService, times(1)).deleteTask(1L);
-    }
-
-    @Test
-    public void shouldGetTaskById() throws Exception {
-        // Given
-        Task task = new Task(1L, "Test Title", "Test");
-        TaskDto taskDto = new TaskDto(1L, "Test Title", "Test");
-
-        when(dbService.getTask(Long.MAX_VALUE)).thenReturn(Optional.of(task));
-        when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
-
-        // When & Then
-        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
+    public void shouldDeleteTask() throws Exception {
+        //When & Then
+        mockMvc.perform(delete("/v1/tasks/1").contentType(MediaType.APPLICATION_JSON)
+                .param("taskId", "1"))
                 .andExpect(status().isOk());
     }
-}
+
+        @Test
+        public void shouldGetTaskById () throws Exception {
+            // Given
+            Task task = new Task(1L, "Test Title", "Test");
+            TaskDto taskDto = new TaskDto(1L, "Test Title", "Test");
+
+            when(dbService.getTask(Long.MAX_VALUE)).thenReturn(Optional.of(task));
+            when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
+
+            // When & Then
+            mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk());
+        }
+    }
